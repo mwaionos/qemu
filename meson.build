@@ -1324,6 +1324,13 @@ if not get_option('libssh').auto() or have_block
                     required: get_option('libssh'))
 endif
 
+libaws_c_s3 = not_found
+if not get_option('libaws-c-s3').auto() or have_block
+  libaws_c_s3 = dependency('libaws-c-s3', version: '>=0.8.7',
+                    method: 'pkg-config',
+                    required: get_option('libaws-c-s3'))
+endif
+
 libbzip2 = not_found
 if not get_option('bzip2').auto() or have_block
   libbzip2 = cc.find_library('bz2', has_headers: ['bzlib.h'],
@@ -2097,6 +2104,7 @@ config_host_data.set('CONFIG_LIBDAXCTL', libdaxctl.found())
 config_host_data.set('CONFIG_LIBISCSI', libiscsi.found())
 config_host_data.set('CONFIG_LIBNFS', libnfs.found())
 config_host_data.set('CONFIG_LIBSSH', libssh.found())
+config_host_data.set('CONFIG_LIBAWSCS3', libaws_c_s3.found())
 config_host_data.set('CONFIG_LINUX_AIO', libaio.found())
 config_host_data.set('CONFIG_LINUX_IO_URING', linux_io_uring.found())
 config_host_data.set('CONFIG_LIBPMEM', libpmem.found())
@@ -4306,6 +4314,7 @@ summary_info += {'seccomp support':   seccomp}
 summary_info += {'GlusterFS support': glusterfs}
 summary_info += {'TPM support':       have_tpm}
 summary_info += {'libssh support':    libssh}
+summary_info += {'libaws-c-s3 support': libaws_c_s3}
 summary_info += {'lzo support':       lzo}
 summary_info += {'snappy support':    snappy}
 summary_info += {'bzip2 support':     libbzip2}

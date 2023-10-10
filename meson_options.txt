@@ -176,6 +176,8 @@ option('libpmem', type : 'feature', value : 'auto',
        description: 'libpmem support')
 option('libssh', type : 'feature', value : 'auto',
        description: 'ssh block device support')
+option('libaws-c-s3', type : 'feature', value : 'auto',
+       description: 's3 block device support')
 option('libudev', type : 'feature', value : 'auto',
        description: 'Use libudev to enumerate host devices')
 option('libusb', type : 'feature', value : 'auto',
