@@ -1325,10 +1325,16 @@ if not get_option('libssh').auto() or have_block
 endif
 
 libaws_c_s3 = not_found
-if not get_option('libaws-c-s3').auto() or have_block
-  libaws_c_s3 = dependency('libaws-c-s3', version: '>=0.8.7',
-                    method: 'pkg-config',
-                    required: get_option('libaws-c-s3'))
+if not get_option('libaws_c_s3').auto() or have_block
+  libaws_c_s3 = cc.find_library('aws-c-s3', has_headers: ['aws/common/mutex.h', 'aws/auth/credentials.h'],
+                             required: get_option('libaws_c_s3'))
+  if not libaws_c_s3.found()
+    if get_option('libaws_c_s3').enabled()
+      error('could not link libaws-c-s3')
+    else
+      warning('could not find libaws-c-s3, disabling')
+    endif
+  endif
 endif
 
 libbzip2 = not_found
